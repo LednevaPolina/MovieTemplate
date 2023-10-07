@@ -1,0 +1,30 @@
+﻿@model Cinema
+@{
+    ViewData["Title"] = "MovieDetail";
+}
+
+<h1>Movie Details</h1>
+
+@if (ViewBag.errorMessages !=null)   
+{
+    <h2 class="text-danger">@ViewBag.errorMessages</h2>
+}else{
+
+    <div class="row">
+        <div class="col-md-4">
+            <p>Country : @Model.Country</p>
+            <p>Genre : @Model.Genre</p>
+            <p>imdbRating : @Model.imdbRating</p>
+            <p>Director : @Model.Director</p>
+            <p>Actors : @Model.Actors</p>
+            <p>BoxOffice : @Model.BoxOffice</p>
+            <p>Metascore : @Model.Metascore</p>
+            <p>Language : @Model.Language</p>
+            <p>Plot : @Model.Plot</p>
+            <p>Runtime : @Model.Runtime</p>
+        </div>
+        <div class="col-md-3">
+            <partial name="_MovieCardPartial" model="@Model"></partial>
+        </div>
+    </div>
+}
