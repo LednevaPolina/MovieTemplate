@@ -7,26 +7,12 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Title (@Model.Year)</h5>
         <p class="card-text">Genre: @Model.Type
-
-            @switch (Model.Type)
-            {
-                case "movie":
-                    <img src="/images/movie.png" width="20" />
-                    break;
-                case "series":
-                    <img src="/images/serial.png" width="20" />
-                    break;
-                case "game":
-                    <img src="/images/game.png" width="20" />
-                    break;
-                default:
-                    <img src="/images/question.png" width="20" />
-                    break;
-            }
+            <img movie="@Model"></img>
         </p>
         @if (Model.Plot==null)
         {
-             <a asp-controller="Home" asp-action="MovieDetail" asp-route-id="@Model.imdbID" class="btn btn-primary">Detail</a>
+            <movie-details movie="@Model"></movie-details>
+             @*<a asp-controller="Home" asp-action="MovieDetail" asp-route-id="@Model.imdbID" class="btn btn-primary">Detail</a>*@
         }
        
     </div>

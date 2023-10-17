@@ -1,3 +1,4 @@
+using Movie.Extensions;
 using Movie.Options;
 using Movie.Services;
 
@@ -15,12 +16,19 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddSingleton();
 //builder.Services.AddScoped();
 builder.Services.AddMemoryCache();
-builder.Services.Configure<MovieApiOptions>(options =>
+//builder.Services.Configure<MovieApiOptions>(options =>
+//{
+//    options.ApiKey = builder.Configuration["ConnectionStrings:ApiKey"];
+//    options.BaseUrl = builder.Configuration["ConnectionStrings:BaseUrl"];
+//});
+//builder.Services.AddScoped<IMovieApiServices, MovieApiServices>();   
+
+builder.Services.AddMovieService(options =>
 {
     options.ApiKey = builder.Configuration["ConnectionStrings:ApiKey"];
     options.BaseUrl = builder.Configuration["ConnectionStrings:BaseUrl"];
 });
-builder.Services.AddTransient<IMovieApiServices, MovieApiServices>();
+
 builder.Services.AddHttpClient();
 
 var app = builder.Build();
