@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Movie.Models;
 using Movie.Services;
+using Movie.ViewModels;
 using System.Diagnostics;
 
 namespace Movie.Controllers
@@ -41,23 +42,49 @@ namespace Movie.Controllers
 
             return View(cinema);
         }
-       
-        public async Task<IActionResult> Search(string title)
+
+        public async Task<IActionResult> Search(string title, int page = 1)
         {
-            MovieApiResponse result = null;
+            
+            SearchViewModel searchViewModel=new SearchViewModel();
             //search movies
             try
             {
-                result=await movieApiServices.SearchByTitleAsync(title);
+                MovieApiResponse result = await movieApiServices.SearchByTitleAsync(title, page);
+
+                searchViewModel.Title = title;
+                searchViewModel.Movies = result.Cinemas;
+                searchViewModel.Response=result.Response;
+                searchViewModel.Error=result.Error;
+                searchViewModel.TotalPages = (int)Math.Ceiling(result.TotalResults / 10.0);
+                searchViewModel.CurrentPage = page;
             }
             catch (Exception ex)
             {
-                ViewBag.errorMessages=ex.Message;
+                searchViewModel.Error = ex.Message;
             }
-            
-            ViewBag.searchMovie = title;
-            return View(result);
+
+            return View(searchViewModel);
         }
+
+        //public async Task<IActionResult> Search(string title, int page=1)
+        //{
+        //    MovieApiResponse result = null;
+        //    //search movies
+        //    try
+        //    {
+        //        result=await movieApiServices.SearchByTitleAsync(title, page);
+        //        ViewBag.TotalPages = Math.Ceiling(result.TotalResults / 10.0);
+        //        ViewBag.CurrentPage = page;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        ViewBag.errorMessages=ex.Message;
+        //    }
+
+        //    ViewBag.searchMovie = title;
+        //    return View(result);
+        //}
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

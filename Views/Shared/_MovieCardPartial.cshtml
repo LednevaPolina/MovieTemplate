@@ -1,18 +1,21 @@
 ﻿@model Cinema
-<div class="card">
-
-    @*<img src="@(Model.Poster =="N/A" ? "/images/No_Image.png" : Model.Poster)" class="card-img-top" alt="...">*@
-    @*<img src="@Model.Poster" class="card-img-top" alt="...">*@
-    <img src="@Model.Poster" onerror="event.target.src='/images/No_Image.png'" class="card-img-top" alt="...">
+<div class="card">   
+    
+    
+    <div class="img-container">
+        <div class="img-blur" style="background-image:url(@Model.Poster)"></div>
+        <img src="@Model.Poster" onerror="event.target.src='/images/No_Image.png'" class="card-img-top" alt="...">
+        
+    </div>
+    
     <div class="card-body">
         <h5 class="card-title">@Model.Title (@Model.Year)</h5>
-        <p class="card-text">Genre: @Model.Type
+        <p class="card-text">Type: @Model.Type
             <img movie="@Model"></img>
         </p>
         @if (Model.Plot==null)
         {
             <movie-details movie="@Model"></movie-details>
-             @*<a asp-controller="Home" asp-action="MovieDetail" asp-route-id="@Model.imdbID" class="btn btn-primary">Detail</a>*@
         }
        
     </div>

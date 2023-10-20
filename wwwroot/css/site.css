@@ -20,3 +20,32 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.img-container{
+    height:250px;
+    position:relative;
+}
+.card-body{
+    height:200px;    
+}
+.card img {
+    position: relative;
+    z-index: 3;
+    object-fit:contain;
+    height:100%;
+    
+}
+.card .img-blur {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    filter: blur(5px);
+    background-position: center;
+    z-index: 2;
+}
+.card{
+    margin:3px;
+    overflow:hidden;
+}
