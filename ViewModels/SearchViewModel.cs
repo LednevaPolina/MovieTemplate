@@ -7,6 +7,7 @@ namespace Movie.ViewModels
         public IEnumerable<Cinema> Movies { get; set; }
         public string Title { get; set; }
         public int CurrentPage { get; set; }
+        public int CountViewPage { get; set; }
         public int TotalResults { get; set; }
         public int TotalPages { get; set; }
         public string Response { get; set; }

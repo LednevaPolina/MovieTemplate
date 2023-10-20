@@ -15,7 +15,8 @@
         </p>
         @if (Model.Plot==null)
         {
-            <movie-details movie="@Model"></movie-details>
+            <a my-type="Full" movie="@Model"></a>
+            <a my-type="Modal" movie="@Model" data-open-modal></a>
         }
        
     </div>

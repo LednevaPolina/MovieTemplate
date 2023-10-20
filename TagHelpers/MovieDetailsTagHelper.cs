@@ -1,31 +1,67 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using Movie.Models;
+using System.Security.Policy;
 
 namespace Movie.TagHelpers
 {
+    [HtmlTargetElement("a",Attributes ="movie")]
     public class MovieDetailsTagHelper: TagHelper
     {
+        public enum MovieDetailsType
+        {
+            Full, Modal
+        }
+        
+        private readonly IUrlHelperFactory urlHelperFactory;
+        public MovieDetailsTagHelper(IUrlHelperFactory urlHelperFactory) 
+        {
+            this.urlHelperFactory=urlHelperFactory;
+        }
         public Cinema Movie { get; set; }
+        public MovieDetailsType MyType { get; set; }
+
+        [ViewContext]
+        [HtmlAttributeNotBound]
+        public ViewContext Context { get; set; }
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if(Movie!=null)
             {
+                IUrlHelper urlHelper = urlHelperFactory.GetUrlHelper(Context);
                 output.TagName = "a";
                 output.Attributes.Add("class", "btn btn-primary");
-                output.Attributes.Add("href", $"/Home/MovieDetail/{Movie.imdbID}");
-                output.Content.Append("Details");
-                //var i = new TagBuilder("i");
-                //if (Movie.Type == "game")
-                //    i.AddCssClass("fa-solid fa-gamepad");
-                //else if (Movie.Type == "series")
-                //    i.AddCssClass("fa-solid fa-tv");
-                //else if (Movie.Type == "movie")
-                //    i.AddCssClass("fa-solid fa-film");
+                //output.Attributes.Add("href", $"/Home/MovieDetail/{Movie.imdbID}");
+                string url;
+                
 
-                //output.Content.AppendHtml(i);
-                //output.Content.Append(" Details");
+                if (MyType==MovieDetailsType.Full)
+                {
+                    url = urlHelper.ActionLink("MovieDetail", "Home", new { id = Movie.imdbID });
+                    var i = new TagBuilder("i");
 
+                    //if (Movie.Type == "game")
+                    //    i.AddCssClass("fa-solid fa-gamepad");
+                    //else if (Movie.Type == "series")
+                    //    i.AddCssClass("fa-solid fa-tv");
+                    //else if (Movie.Type == "movie")
+                    //    i.AddCssClass("fa-solid fa-film");
+
+                    //output.Content.AppendHtml(i);
+                    output.Content.Append("Details");
+                }
+                else
+                {
+                    url = urlHelper.ActionLink("MovieDetailModal", "Home", new { id = Movie.imdbID });
+                    var i = new TagBuilder("i");
+                    i.AddCssClass("fa-solid fa-eye");
+                    output.Content.AppendHtml(i);
+                }
+                output.Attributes.Add("href", url);             
+              
             }
             
 

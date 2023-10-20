@@ -17,7 +17,7 @@ namespace Movie.TagHelpers
                 else if (Movie.Type == "series")
                     output.Attributes.Add("src", "/images/serial.png");
                 else if (Movie.Type == "movie")
-                    output.Attributes.Add("src", "/images/movie.png");                            
+                    output.Attributes.Add("src", "/images/movie.png");                   
                 
         }
     }

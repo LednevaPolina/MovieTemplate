@@ -9,17 +9,19 @@ namespace Movie.Controllers
     public class HomeController : Controller
     {
         private readonly IMovieApiServices movieApiServices;
+        private readonly IRecentMovieStorage recentMovieStorage;
 
-        public HomeController(IMovieApiServices movieApiServices)
+        public HomeController(IMovieApiServices movieApiServices, IRecentMovieStorage recentMovieStorage)
         {
             this.movieApiServices=movieApiServices;
+            this.recentMovieStorage=recentMovieStorage;
         }
 
         public IActionResult Index()
         {
-            return View();
-
             
+            var result = recentMovieStorage.GetRecent();
+            return View(result);            
         }
 
         public IActionResult Privacy()
@@ -33,6 +35,7 @@ namespace Movie.Controllers
             try
             {
                 cinema=await movieApiServices.SearchByIdAsync(id);
+                recentMovieStorage.Add(cinema);
             }
             catch (Exception ex)
             {
@@ -43,7 +46,25 @@ namespace Movie.Controllers
             return View(cinema);
         }
 
-        public async Task<IActionResult> Search(string title, int page = 1)
+        public async Task<IActionResult> MovieDetailModal(string id)
+        {
+            Cinema cinema = null;
+
+            try
+            {
+                cinema = await movieApiServices.SearchByIdAsync(id);
+                recentMovieStorage.Add(cinema);
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.errorMessages = ex.Message;
+            }
+
+            return PartialView("_MovieDetailModalPartial",cinema);
+        }
+
+        public async Task<IActionResult> Search(string title, int page = 1, int countViewPage=9)
         {
             
             SearchViewModel searchViewModel=new SearchViewModel();
@@ -53,9 +74,11 @@ namespace Movie.Controllers
                 MovieApiResponse result = await movieApiServices.SearchByTitleAsync(title, page);
 
                 searchViewModel.Title = title;
+                searchViewModel.CountViewPage = countViewPage;
                 searchViewModel.Movies = result.Cinemas;
                 searchViewModel.Response=result.Response;
                 searchViewModel.Error=result.Error;
+                searchViewModel.TotalResults=result.TotalResults;
                 searchViewModel.TotalPages = (int)Math.Ceiling(result.TotalResults / 10.0);
                 searchViewModel.CurrentPage = page;
             }

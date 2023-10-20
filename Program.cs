@@ -16,6 +16,7 @@ builder.Services.AddControllersWithViews();
 //builder.Services.AddSingleton();
 //builder.Services.AddScoped();
 builder.Services.AddMemoryCache();
+builder.Services.AddSingleton<IRecentMovieStorage, RecentMovieStorage>();
 //builder.Services.Configure<MovieApiOptions>(options =>
 //{
 //    options.ApiKey = builder.Configuration["ConnectionStrings:ApiKey"];
