@@ -15,22 +15,18 @@
     {
         <h2>Recent movies</h2>
         <div class="row">
-            @foreach (Cinema item in @Model)
+            @*@foreach (Cinema item in @Model)
             {
                 <div class="col-2">
                     <partial name="_MovieCardPartial" model="@item"></partial>
                 </div>
-            }
+            }*@
+            <partial name="_MovieListPartial"></partial>
         </div>
     }
     
 </div>
+<partial name="_ModalWindowPartial"></partial>
 
-@section Scripts{
-    <script>
-        $('h1').click(function(){
-            $(this).text("Clicked");
-        });
-    </script>
-}
+
 

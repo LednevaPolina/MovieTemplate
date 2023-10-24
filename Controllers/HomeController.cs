@@ -64,10 +64,30 @@ namespace Movie.Controllers
             return PartialView("_MovieDetailModalPartial",cinema);
         }
 
-        public async Task<IActionResult> Search(string title, int page = 1, int countViewPage=9)
+
+
+        public async Task<IActionResult> SearchResult(string title, int page = 1, int countViewPage=9)
         {
             
-            SearchViewModel searchViewModel=new SearchViewModel();
+            SearchViewModel searchViewModel=new SearchViewModel();            
+            try
+            {
+                MovieApiResponse result = await movieApiServices.SearchByTitleAsync(title, page);                
+                searchViewModel.Movies = result.Cinemas;
+                
+            }
+            catch (Exception ex)
+            {
+                searchViewModel.Error = ex.Message;
+            }
+
+            return PartialView("_MovieListPartial", searchViewModel.Movies);
+        }
+
+        public async Task<IActionResult> Search(string title, int page = 1, int countViewPage = 9)
+        {
+
+            SearchViewModel searchViewModel = new SearchViewModel();
             //search movies
             try
             {
@@ -76,9 +96,9 @@ namespace Movie.Controllers
                 searchViewModel.Title = title;
                 searchViewModel.CountViewPage = countViewPage;
                 searchViewModel.Movies = result.Cinemas;
-                searchViewModel.Response=result.Response;
-                searchViewModel.Error=result.Error;
-                searchViewModel.TotalResults=result.TotalResults;
+                searchViewModel.Response = result.Response;
+                searchViewModel.Error = result.Error;
+                searchViewModel.TotalResults = result.TotalResults;
                 searchViewModel.TotalPages = (int)Math.Ceiling(result.TotalResults / 10.0);
                 searchViewModel.CurrentPage = page;
             }
@@ -89,7 +109,6 @@ namespace Movie.Controllers
 
             return View(searchViewModel);
         }
-
         //public async Task<IActionResult> Search(string title, int page=1)
         //{
         //    MovieApiResponse result = null;
