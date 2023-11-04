@@ -19,11 +19,11 @@ let page;
 let totalPages;
 let url;
 
-function initPagination(p, t, u) {
-    page = p;
-    totalPages = t;
-    url = u;
-}
+//function initPagination(p, t, u) {
+//    page = p;
+//    totalPages = t;
+//    url = u;
+//}
 
 //$('#buttonNext').click(async function () {
 //    page++;
@@ -40,7 +40,7 @@ function initPagination(p, t, u) {
 let isScroll = true;
 
 $(window).scroll(async function () {
-    if ($(window).scrollTop() + $(window).height() > $(document).height() - 100 && isScroll)
+    if ($(window).scrollTop() + $(window).height() > $(document).height() - 5000 && isScroll)
     {
         isScroll = false;
         if (page < totalPages)
@@ -49,7 +49,7 @@ $(window).scroll(async function () {
             let response = await fetch(`${url}&page=${page}`);
             let result = await response.text();
 
-            $('.row').append(result);
+            $('.myList').append(result);
         }
         if (page >= totalPages) {
             $('#buttonNext').remove()

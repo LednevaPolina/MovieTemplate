@@ -13,11 +13,11 @@ namespace Movie.TagHelpers
                 output.TagName = "img";                
                 output.Attributes.Add("width", "20");
                 if(Movie.Type == "game")
-                    output.Attributes.Add("src", "/images/game.png");
+                    output.Attributes.Add("src", "/img/game.png");
                 else if (Movie.Type == "series")
-                    output.Attributes.Add("src", "/images/serial.png");
+                    output.Attributes.Add("src", "/img/serial.png");
                 else if (Movie.Type == "movie")
-                    output.Attributes.Add("src", "/images/movie.png");                   
+                    output.Attributes.Add("src", "/img/movie.png");                   
                 
         }
     }

@@ -86,16 +86,13 @@
     }
 </div>
 
-<button id="buttonNext" class="btn btn-primary">Next</button>
-
 <partial name="_ModalWindowPartial"></partial>
 
 
 @section Scripts{
     <script>
-
         initPagination(@Model.CurrentPage, @Model.TotalPages, '@Url.ActionLink("SearchResult","Home", new {title=Model.Title})');
-       
+      
         //let page=@Model.CurrentPage;
         //let title='@Model.Title';
         //$('#buttonNext').click(async function(){

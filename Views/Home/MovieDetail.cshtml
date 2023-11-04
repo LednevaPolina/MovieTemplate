@@ -9,24 +9,114 @@
 {
     <h2 class="text-danger">@ViewBag.errorMessages</h2>
 }else{
+    <!-- Shop Detail Start -->
+    <div class="container-fluid py-5">
+        <div class="row px-xl-5">
+            <div class="col-lg-5 pb-5">
+                <div id="product-carousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner border">
+                        <div class="carousel-item active">
+                            <img class="w-100 h-100" src="@Model.Poster" alt="Image">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="w-100 h-100" src="@Model.Poster" alt="Image">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="w-100 h-100" src="@Model.Poster" alt="Image">
+                        </div>
+                        <div class="carousel-item">
+                            <img class="w-100 h-100" src="@Model.Poster" alt="Image">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
+                        <i class="fa fa-2x fa-angle-left text-dark"></i>
+                    </a>
+                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
+                        <i class="fa fa-2x fa-angle-right text-dark"></i>
+                    </a>
+                </div>
+            </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <p>Country : @Model.Country</p>
-            <p>Genre : @Model.Genre</p>
-            <p>imdbRating : @Model.imdbRating</p>
-            <p>Director : @Model.Director</p>
-            <p>Actors : @Model.Actors</p>
-            <p>BoxOffice : @Model.BoxOffice</p>
-            <p>Metascore : @Model.Metascore</p>
-            <p>Language : @Model.Language</p>
-            <p>Plot : @Model.Plot</p>
-            <p>Runtime : @Model.Runtime</p>
+            <div class="col-lg-7 pb-5">
+                <h3 class="font-weight-semi-bold">@Model.Title</h3>
+                <div class="d-flex mb-3">
+                    <div class="text-primary mr-2">
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star"></small>
+                        <small class="fas fa-star-half-alt"></small>
+                        <small class="far fa-star"></small>
+                        <p>imdbRating</p>
+                    </div>
+                    <small class="pt-1">@Model.imdbRating</small>
+                </div>
+                <h3 class="font-weight-semi-bold mb-4">@Model.Genre</h3>
+                <p class="mb-4">@Model.Plot</p>                
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Country</p>
+                    <p class="mb-4">@Model.Country</p>
+                </div>
+                <div class="d-flex mb-4">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Production Year</p>
+                    <p class="mb-4">@Model.Year</p>                    
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Genre</p>
+                    <p class="mb-4">@Model.Genre</p>
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Writer</p>
+                    <p class="mb-4">@Model.Writer</p>
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Actors</p>
+                    <p class="mb-4">@Model.Actors</p>
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Released</p>
+                    <p class="mb-4">@Model.Released</p>
+                </div>
+
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Box Office</p>
+                    <p class="mb-4">@Model.BoxOffice</p>
+                </div>
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Awards</p>
+                    <p class="mb-4">@Model.Awards</p>
+                </div>
+
+                <div class="d-flex mb-3">
+                    <p class="text-dark font-weight-medium mb-0 mr-3">Runtime</p>
+                    <p class="mb-4">@Model.Runtime</p>
+                </div>
+               
+                <div class="d-flex pt-2">
+                    <p class="text-dark font-weight-medium mb-0 mr-2">Share on:</p>
+                    <div class="d-inline-flex">
+                        <a class="text-dark px-2" href="">
+                            <i class="fa fa-vk"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fa fa-telegram"></i>
+                        </a>
+                        <a class="text-dark px-2" href="">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                       
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-3">
-            <partial name="_MovieCardPartial" model="@Model"></partial>
-        </div>
-    </div>
-}
+        
+     </div>
+                       
+    }
+   
+
 
 <partial name="_ModalWindowPartial"></partial>
+
